@@ -1,0 +1,24 @@
+{
+  "name": "mycomap-batch-validator",
+  "version": "1.0.0",
+  "description": "This is a helper script to validate a spreadsheet containing 2 columns of data: the BC Mycomap voucher number. This is specifically for the BC Mycomap project, which has the `BCXX-` prefix.",
+  "author": "Ben Keen",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benkeen/mycomap-batch-validator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/benkeen/mycomap-batch-validator/issues"
+  },
+  "homepage": "https://github.com/benkeen/mycomap-batch-validator#readme",
+  "dependencies": {
+    "read-excel-file": "^6.0.1",
+    "typescript": "^5.9.3",
+    "webpack": "^5.103.0"
+  }
+}
