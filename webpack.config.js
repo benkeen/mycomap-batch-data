@@ -69,6 +69,13 @@ module.exports = (env, argv) => {
 
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
+      //   fallback: {
+      //     fs: false,
+      //     buffer: require.resolve('buffer'),
+      //     http: require.resolve('stream-http'),
+      //     https: require.resolve('https-browserify'),
+      //     zlib: require.resolve('browserify-zlib'),
+      //   },
     },
   };
 
