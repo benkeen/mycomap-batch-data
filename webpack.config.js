@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
 
     output: {
       path: path.join(__dirname, 'dist'),
-      publicPath: '/mycomap-batch-data/',
+      publicPath: mode === 'production' ? '/mycomap-batch-data/' : '/',
       chunkFilename:
         mode === 'development' ? '[name].js' : '[name]-[fullhash].js',
       filename: mode === 'development' ? '[name].js' : '[name]-[fullhash].js',

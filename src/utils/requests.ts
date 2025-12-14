@@ -1,3 +1,4 @@
+import { throttledQueue } from 'throttled-queue';
 import qs from 'query-string';
 import * as constants from '../constants';
 
@@ -10,6 +11,36 @@ ofvs: [
  { "name": "Voucher Number(s)", "value": "BC25-12345"}
 ]
 */
+
+export const getObservations = async (
+  userId: string,
+  fromDate: string,
+  toDate: string
+) => {
+  const throttle = throttledQueue({
+    maxPerInterval: 5,
+    interval: 1050,
+  });
+
+  const { results, totalResults } = await throttle(() =>
+    getDataPacket(userId, fromDate, toDate)
+  );
+
+  if (totalResults >= constants.INAT_REQUEST_RESULTS_PER_PAGE) {
+    const totalPages = Math.ceil(
+      totalResults / constants.INAT_REQUEST_RESULTS_PER_PAGE
+    );
+    for (let page = 2; page <= totalPages; page++) {
+      // eslint-disable-next-line no-await-in-loop
+      const { results: pageResults } = await throttle(() =>
+        getDataPacket(userId, fromDate, toDate)
+      );
+      results.push(...pageResults);
+    }
+  }
+
+  return results;
+};
 
 export const getDataPacket = async (
   userId: string,
@@ -44,5 +75,8 @@ export const getDataPacket = async (
     };
   });
 
-  return trimmedData;
+  return {
+    totalResults: rawData.total_results,
+    results: trimmedData,
+  };
 };

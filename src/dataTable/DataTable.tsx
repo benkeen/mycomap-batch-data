@@ -40,7 +40,7 @@ export const DataTable = ({ data }: any) => {
           </TableHead>
           <TableBody>
             {data.map((row: any) => (
-              <TableRow key={row.name}>
+              <TableRow key={row.id}>
                 <TableCell>
                   <a
                     href={`https://www.inaturalist.org/observations/${row.id}`}

@@ -1,6 +1,6 @@
 export const isValidVoucherNumber = (val: string) => {
-  // crude, but checks for a basic BCxx-xx pattern, where x are numbers and there are any numbers of digits after the dash
-  return val && /^BC\d{2}\-\d+/.test(val);
+  // crude, but checks for a basic BCxx-xxxxx pattern
+  return val && /^BC\d{2}\-\d{5}$/i.test(val);
 };
 
 export const downloadCSV = (data: any[]) => {

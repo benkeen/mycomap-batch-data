@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { UserFields } from '../fields/UserFields';
-import { getDataPacket } from '../utils/requests';
+import { getObservations } from '../utils/requests';
 import { DataTable } from '../dataTable/DataTable';
 
 export const App = () => {
@@ -19,7 +19,7 @@ export const App = () => {
 
     (async () => {
       const { username, fromDate, toDate } = searchData;
-      const packetData = await getDataPacket(username, fromDate!, toDate!);
+      const packetData = await getObservations(username, fromDate!, toDate!);
 
       console.log('settings data: ', packetData);
 

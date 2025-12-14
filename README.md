@@ -1,3 +1,8 @@
 ## Mycomap Batch Data
 
-This is a helper script to generate and download CSV of any iNat user who's contributed to the BC Mycoma project.
+This is a tool to allow any BC Mycomap contributor generate a CSV file for the batch of submissions.
+
+TODO:
+
+- run check on every observation
+- add query param to override voucher number format check
