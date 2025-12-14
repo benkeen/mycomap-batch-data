@@ -9,19 +9,28 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import { downloadCSV } from '../utils/data';
 
-export const DataTable = ({ data }: any) => {
+export type DataTableProps = {
+  data: any[];
+  hasErrors: boolean;
+};
+
+export const DataTable = ({ data, hasErrors }: DataTableProps) => {
   const str = data.length === 1 ? 'observation found' : 'observations found';
+
+  const downloadBtn = hasErrors ? null : (
+    <Button variant='outlined' onClick={() => downloadCSV(data)}>
+      Download CSV
+    </Button>
+  );
+
   return (
     <>
       <p>
-        <b>{data.length}</b> {str}.{' '}
-        <Button variant='outlined' onClick={() => downloadCSV(data)}>
-          Download CSV
-        </Button>
+        <b>{data.length}</b> {str}. {downloadBtn}
       </p>
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>

@@ -2,16 +2,6 @@ import { throttledQueue } from 'throttled-queue';
 import qs from 'query-string';
 import * as constants from '../constants';
 
-// https://api.inaturalist.org/v1/observations?order_by=id&order=asc&page=1&project_id=250590&per_page=200&user_id=benkeen&d1=2025-12-01&d2=2025-12-05
-
-/*
-id: string;
-observed_on: string;
-ofvs: [
- { "name": "Voucher Number(s)", "value": "BC25-12345"}
-]
-*/
-
 export const getObservations = async (
   userId: string,
   fromDate: string,
@@ -64,16 +54,16 @@ export const getDataPacket = async (
   const response = await fetch(apiUrl);
   const rawData = await response.json();
 
-  const trimmedData = rawData.results.map((obs: any) => {
-    return {
-      id: obs.id,
-      observedOn: obs.observed_on,
-      user: userId,
-      voucherNumber: obs.ofvs
-        .filter((ofv: any) => ofv.name === 'Voucher Number(s)')
-        .map((ofv: any) => ofv.value)[0],
-    };
-  });
+  // in order to be added to the project, we know the observatio has the voucher number field. It's also unique: you *can* add
+  // a new field called "Voucher Number(s)", but iNat automatically adds a " :" suffix, so it'll be ignored here
+  const trimmedData = rawData.results.map((obs: any) => ({
+    id: obs.id,
+    observedOn: obs.observed_on,
+    user: userId,
+    voucherNumber: obs.ofvs
+      .filter((ofv: any) => ofv.name === 'Voucher Number(s)')
+      .map((ofv: any) => ofv.value)[0],
+  }));
 
   return {
     totalResults: rawData.total_results,

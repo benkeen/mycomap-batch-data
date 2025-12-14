@@ -7,14 +7,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-// import { CircularProgress } from '@mui/material';
 
 interface UserFieldsProps {
   onSubmit: any;
+  disabled: boolean;
 }
 
-export const UserFields: FC<UserFieldsProps> = ({ onSubmit }) => {
-  const [username, setUsername] = React.useState<string>('');
+export const UserFields: FC<UserFieldsProps> = ({ onSubmit, disabled }) => {
+  const [username, setUsername] = React.useState<string>('benkeen');
   const [fromDate, setFromDate] = React.useState<Dayjs | null>(null);
   const [toDate, setToDate] = React.useState<Dayjs | null>(null);
 
@@ -40,6 +40,7 @@ export const UserFields: FC<UserFieldsProps> = ({ onSubmit }) => {
               onChange={(e) => setUsername(e.target.value)}
               variant='outlined'
               sx={{ width: '100%' }}
+              disabled={disabled}
             />
           </Grid>
           <Grid size={3}>
@@ -48,6 +49,7 @@ export const UserFields: FC<UserFieldsProps> = ({ onSubmit }) => {
               value={fromDate}
               onChange={(value) => setFromDate(value)}
               sx={{ width: '160px' }}
+              disabled={disabled}
             />
           </Grid>
           <Grid size={3}>
@@ -56,6 +58,7 @@ export const UserFields: FC<UserFieldsProps> = ({ onSubmit }) => {
               value={toDate}
               onChange={(value) => setToDate(value)}
               sx={{ width: '160px' }}
+              disabled={disabled}
             />
           </Grid>
           <Grid size={1}>
@@ -72,7 +75,7 @@ export const UserFields: FC<UserFieldsProps> = ({ onSubmit }) => {
                     : null,
                 })
               }
-              disabled={!username || !fromDate || !toDate}
+              disabled={!username || !fromDate || !toDate || disabled}
             >
               Generate
             </Button>
