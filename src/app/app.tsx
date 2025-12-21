@@ -74,6 +74,7 @@ export const App = () => {
 
   const getInvalidDataTable = () => {
     if (
+      invalidData.emptyVoucherEntries.length === 0 &&
       invalidData.invalidVouchers.length === 0 &&
       invalidData.obsWithDuplicateVoucherNums.length === 0
     ) {
