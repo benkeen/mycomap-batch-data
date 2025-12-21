@@ -111,6 +111,8 @@ export const findInvalidVoucherEntries = (
     invalidVouchers,
     obsWithDuplicateVoucherNums,
     hasErrors:
-      invalidVouchers.length > 0 || obsWithDuplicateVoucherNums.length > 0,
+      emptyVoucherEntries.length > 0 ||
+      invalidVouchers.length > 0 ||
+      obsWithDuplicateVoucherNums.length > 0,
   };
 };
